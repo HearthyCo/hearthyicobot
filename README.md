@@ -1,6 +1,6 @@
 # Chatbot for Hearthy.co Telegram account
 
-One Paragraph of project description goes here
+This code is about the chatbot created to answer the questions around the ICO of [Hearthy.co](http://hearthy.co/). If you want more information about the project please visit the web page.
 
 ## Getting Started
 
@@ -8,10 +8,13 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+ - Install [Go](https://golang.org/doc/install)
+ - Set [GOPATH](https://github.com/golang/go/wiki/Setting-GOPATH)
+ - Install the [Echo](https://echo.labstack.com/) web framework
+ - Clone this project in your GOPATH
 
 ```
-Give examples
+go get -u github.com/HearthyCo/hearthyicobot/...
 ```
 
 ### Installing
