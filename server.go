@@ -75,7 +75,7 @@ func Askwit(textrequest string, res interface{}) error {
 	q.Add("q", textrequest)
 	req.URL.RawQuery = q.Encode()
 	fmt.Println(req.URL.String())
-	req.Header.Add("Authorization", "Bearer GPXW7M4BANRCYS2NDT2WYPUVX7ZOLOBS")
+	req.Header.Add("Authorization", "Bearer ")
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("X-Accept", "application/json")
 	client := &http.Client{}
