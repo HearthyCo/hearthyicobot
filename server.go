@@ -48,24 +48,31 @@ func main() {
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		//I receive a request from Telegram
+		var response string
 
-		//I prepare the request to send to wit.ai to interpret what is being said in Telegram
-		req, err := http.NewRequest("GET", "https://api.wit.ai/message", nil)
-		if err != nil {
-			log.Print(err)
-			os.Exit(1)
-		}
-		res := Result{}   //Result has the structure of a JSON response from wit.ai
-		doJSON(req, &res) //I send a resquest to wit.ai, the response is parsed trough Result
+		var res = Result{}    //Result has the structure of a JSON response from wit.ai
+		Askwit("hello", &res) //I send a resquest to wit.ai, the response is parsed trough Result
 		//return c.JSON(http.StatusOK, res)
-		return c.String(http.StatusOK, res.Entities.Intent[0].Value)
+		switch res.Entities.Intent[0].Value { //I switch among the possible responses
+		case "Welcome":
+			response = "La fin du monde"
+		}
+
+		return c.String(http.StatusOK, response)
 	})
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
-func doJSON(req *http.Request, res interface{}) error {
+//Askwit is the function that sends the request to Wit.ai
+func Askwit(textrequest string, res interface{}) error {
+	//I prepare the request to send to wit.ai to interpret what is being said in Telegram
+	req, err := http.NewRequest("GET", "https://api.wit.ai/message", nil)
+	if err != nil {
+		log.Print(err)
+		os.Exit(1)
+	}
 	q := req.URL.Query()
-	q.Add("q", "Hello")
+	q.Add("q", textrequest)
 	req.URL.RawQuery = q.Encode()
 	fmt.Println(req.URL.String())
 	req.Header.Add("Authorization", "Bearer GPXW7M4BANRCYS2NDT2WYPUVX7ZOLOBS")
